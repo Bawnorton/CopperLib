@@ -3,6 +3,7 @@ package com.bawnorton.copperlib.api;
 
 import com.bawnorton.copperlib.copper.*;
 import io.reactivex.rxjava3.core.Single;
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 

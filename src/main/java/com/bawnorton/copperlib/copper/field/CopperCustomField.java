@@ -1,11 +1,20 @@
 package com.bawnorton.copperlib.copper.field;
 
+import com.bawnorton.copperlib.json.ForceListTypeAdpaterFactory;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class CopperCustomField extends AbstractCopperField {
-    public String customFieldDefinitionId;
-    public String value;
+    @SerializedName("custom_field_definition_id")
+    public Integer customFieldDefinitionId;
+
+    @JsonAdapter(ForceListTypeAdpaterFactory.class)
+    @SerializedName("value")
+    public List<Integer> value;
 }
