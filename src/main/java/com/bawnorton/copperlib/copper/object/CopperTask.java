@@ -1,6 +1,8 @@
-package com.bawnorton.copperlib.copper;
+package com.bawnorton.copperlib.copper.object;
 
+import com.bawnorton.copperlib.copper.CopperType;
 import com.bawnorton.copperlib.copper.field.CopperCustomField;
+import com.bawnorton.copperlib.copper.search.CopperTaskSearchParameters;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +11,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperProject extends AbstractCopperObject {
+public class CopperTask extends AbstractSearchableCopperObject {
     @SerializedName("id")
     Integer id;
 
@@ -21,6 +23,18 @@ public class CopperProject extends AbstractCopperObject {
 
     @SerializedName("assignee_id")
     Integer assigneeId;
+
+    @SerializedName("due_date")
+    Integer dueDate;
+
+    @SerializedName("reminder_date")
+    Integer reminderDate;
+
+    @SerializedName("completed_date")
+    Integer completedDate;
+
+    @SerializedName("priority")
+    String priority;
 
     @SerializedName("status")
     String status;
@@ -39,4 +53,14 @@ public class CopperProject extends AbstractCopperObject {
 
     @SerializedName("date_modified")
     Integer dateModified;
+
+    @Override
+    public CopperTaskSearchParameters.Builder getSearchParametersBuilder() {
+        return CopperTaskSearchParameters.builder();
+    }
+
+    @Override
+    public CopperType getCopperType() {
+        return CopperType.TASK;
+    }
 }

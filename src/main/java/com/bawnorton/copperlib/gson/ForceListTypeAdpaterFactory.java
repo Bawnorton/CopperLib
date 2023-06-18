@@ -1,4 +1,4 @@
-package com.bawnorton.copperlib.json;
+package com.bawnorton.copperlib.gson;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -8,7 +8,7 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-public class ForceListTypeAdpaterFactory<E> implements TypeAdapterFactory {
+public class ForceListTypeAdpaterFactory implements TypeAdapterFactory {
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
         TypeAdapter<T> delegateAdapter = gson.getAdapter(type);

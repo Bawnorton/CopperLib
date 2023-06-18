@@ -1,6 +1,9 @@
-package com.bawnorton.copperlib.copper;
+package com.bawnorton.copperlib.copper.object;
 
+import com.bawnorton.copperlib.copper.CopperType;
 import com.bawnorton.copperlib.copper.field.*;
+import com.bawnorton.copperlib.copper.search.CopperCompanySearchParameters;
+import com.bawnorton.copperlib.copper.search.SearchParameters;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +12,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperCompany extends AbstractCopperObject {
+public class CopperCompany extends AbstractSearchableCopperObject {
     @SerializedName("id")
     Integer id;
 
@@ -54,4 +57,14 @@ public class CopperCompany extends AbstractCopperObject {
 
     @SerializedName("date_modified")
     Integer dateModified;
+
+    @Override
+    public CopperCompanySearchParameters.Builder getSearchParametersBuilder() {
+        return CopperCompanySearchParameters.builder();
+    }
+
+    @Override
+    public CopperType getCopperType() {
+        return CopperType.COMPANY;
+    }
 }

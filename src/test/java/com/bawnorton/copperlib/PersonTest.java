@@ -1,7 +1,7 @@
 package com.bawnorton.copperlib;
 
 
-import com.bawnorton.copperlib.copper.CopperPerson;
+import com.bawnorton.copperlib.copper.object.CopperPerson;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

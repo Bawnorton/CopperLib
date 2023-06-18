@@ -1,4 +1,4 @@
-package com.bawnorton.copperlib.copper;
+package com.bawnorton.copperlib.copper.object;
 
 import com.bawnorton.copperlib.copper.field.AbstractCopperField;
 import com.google.gson.annotations.SerializedName;
@@ -17,11 +17,11 @@ public class CopperPipeline extends AbstractCopperObject {
     String name;
 
     @SerializedName("stages")
-    List<CopperPipelineStage> stages;
+    List<Stage> stages;
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    public static class CopperPipelineStage extends AbstractCopperField {
+    public static class Stage extends AbstractCopperField {
         @SerializedName("id")
         Integer id;
 

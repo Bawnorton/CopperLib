@@ -1,4 +1,4 @@
-package com.bawnorton.copperlib.copper;
+package com.bawnorton.copperlib.copper.object;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -27,4 +27,9 @@ public class CopperTag extends AbstractCopperObject {
 
     @SerializedName("count_tasks")
     Integer countTasks;
+
+    @Override
+    public Integer getId() {
+        throw new UnsupportedOperationException("Tags do not have IDs");
+    }
 }

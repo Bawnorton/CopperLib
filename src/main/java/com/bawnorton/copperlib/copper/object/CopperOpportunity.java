@@ -1,6 +1,9 @@
-package com.bawnorton.copperlib.copper;
+package com.bawnorton.copperlib.copper.object;
 
+import com.bawnorton.copperlib.copper.CopperType;
 import com.bawnorton.copperlib.copper.field.CopperCustomField;
+import com.bawnorton.copperlib.copper.search.CopperOpportunitySearchParameters;
+import com.bawnorton.copperlib.copper.search.SearchParameters;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +12,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperOpportunity extends AbstractCopperObject {
+public class CopperOpportunity extends AbstractSearchableCopperObject {
     @SerializedName("id")
     Integer id;
 
@@ -72,4 +75,14 @@ public class CopperOpportunity extends AbstractCopperObject {
 
     @SerializedName("date_modified")
     Integer dateModified;
+
+    @Override
+    public CopperOpportunitySearchParameters.Builder getSearchParametersBuilder() {
+        return CopperOpportunitySearchParameters.builder();
+    }
+
+    @Override
+    public CopperType getCopperType() {
+        return CopperType.OPPORTUNITY;
+    }
 }

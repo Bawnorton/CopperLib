@@ -1,18 +1,14 @@
 
 package com.bawnorton.copperlib.api;
 
-import com.bawnorton.copperlib.copper.CopperPerson;
+import com.bawnorton.copperlib.copper.object.CopperPerson;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import org.jetbrains.annotations.Nullable;
-import retrofit2.Converter;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class CopperApi {

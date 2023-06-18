@@ -1,6 +1,6 @@
 package com.bawnorton.copperlib.copper.field;
 
-import com.bawnorton.copperlib.json.ForceListTypeAdpaterFactory;
+import com.bawnorton.copperlib.gson.ForceListTypeAdpaterFactory;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
