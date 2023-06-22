@@ -1,8 +1,8 @@
 
 package com.bawnorton.copperlib.api;
 
-import com.bawnorton.copperlib.copper.object.*;
-import com.bawnorton.copperlib.copper.search.*;
+import com.bawnorton.copperlib.object.object.*;
+import com.bawnorton.copperlib.object.search.*;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

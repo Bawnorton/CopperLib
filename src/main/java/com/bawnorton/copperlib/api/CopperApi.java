@@ -1,7 +1,9 @@
-
 package com.bawnorton.copperlib.api;
 
-import com.bawnorton.copperlib.copper.object.CopperPerson;
+import com.bawnorton.copperlib.object.field.AbstractCopperField;
+import com.bawnorton.copperlib.object.object.*;
+import com.bawnorton.copperlib.gson.StrictTypeAdapterFactory;
+import com.google.gson.GsonBuilder;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.Nullable;
@@ -28,14 +30,51 @@ public class CopperApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .registerTypeAdapterFactory(new StrictTypeAdapterFactory(AbstractCopperObject.class))
+                                .registerTypeAdapterFactory(new StrictTypeAdapterFactory(AbstractCopperField.class))
+                                .setPrettyPrinting()
+                                .create()))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
 
         service = retrofit.create(CopperService.class);
     }
 
+    public CopperAccount getAccount() {
+        return service.getAccount().blockingGet();
+    }
+
+    public CopperUser getUser(int id) {
+        return service.getUser(id).blockingGet();
+    }
+
+    public CopperLead getLead(int id) {
+        return service.getLead(id).blockingGet();
+    }
+
     public CopperPerson getPerson(int id) {
         return service.getPerson(id).blockingGet();
+    }
+
+    public CopperCompany getCompany(int id) {
+        return service.getCompany(id).blockingGet();
+    }
+
+    public CopperOpportunity getOpportunity(int id) {
+        return service.getOpportunity(id).blockingGet();
+    }
+
+    public CopperProject getProject(int id) {
+        return service.getProject(id).blockingGet();
+    }
+
+    public CopperTask getTask(int id) {
+        return service.getTask(id).blockingGet();
+    }
+
+    public CopperActivity getActivity(int id) {
+        return service.getActivity(id).blockingGet();
     }
 }
