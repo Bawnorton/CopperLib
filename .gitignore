@@ -1,5 +1,7 @@
 ### Project ###
 .auth.*
+transpharmation/
+cache/
 
 ### Gradle ###
 .gradle

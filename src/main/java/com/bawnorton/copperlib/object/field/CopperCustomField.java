@@ -16,5 +16,5 @@ public class CopperCustomField extends AbstractCopperField {
 
     @JsonAdapter(ForceListTypeAdpaterFactory.class)
     @SerializedName("value")
-    public List<String> value;
+    public List<String> values;
 }

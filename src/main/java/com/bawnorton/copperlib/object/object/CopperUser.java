@@ -24,8 +24,7 @@ public class CopperUser extends AbstractSearchableCopperObject {
     @SerializedName("groups")
     List<Group> groups;
 
-    @Override
-    public CopperUserSearchParameters.Builder getSearchParametersBuilder() {
+    public static CopperUserSearchParameters.Builder getSearchParametersBuilder() {
         return CopperUserSearchParameters.builder();
     }
 

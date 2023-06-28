@@ -20,7 +20,7 @@ public class CopperPersonSearchParameters implements SearchParameters {
 
     @lombok.Builder.Default
     @SerializedName("sort_by")
-    String sortBy = "first_name";
+    String sortBy = "name";
 
     @lombok.Builder.Default
     @SerializedName("sort_direction")

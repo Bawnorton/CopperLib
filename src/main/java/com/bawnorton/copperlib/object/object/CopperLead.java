@@ -108,8 +108,7 @@ public class CopperLead extends AbstractSearchableCopperObject {
     @SerializedName("interaction_count")
     Integer interactionCount;
 
-    @Override
-    public CopperLeadSearchParameters.Builder getSearchParametersBuilder() {
+    public static CopperLeadSearchParameters.Builder getSearchParametersBuilder() {
         return CopperLeadSearchParameters.builder();
     }
 

@@ -44,8 +44,7 @@ public class CopperProject extends AbstractSearchableCopperObject {
     @SerializedName("date_modified")
     Integer dateModified;
 
-    @Override
-    public CopperProjectSearchParameters.Builder getSearchParametersBuilder() {
+    public static CopperProjectSearchParameters.Builder getSearchParametersBuilder() {
         return CopperProjectSearchParameters.builder();
     }
 

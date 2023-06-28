@@ -3,6 +3,7 @@ package com.bawnorton.copperlib.object.object;
 import com.bawnorton.copperlib.object.CopperType;
 import com.bawnorton.copperlib.object.field.CopperCustomField;
 import com.bawnorton.copperlib.object.search.CopperTaskSearchParameters;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +20,7 @@ public class CopperTask extends AbstractSearchableCopperObject {
     String name;
 
     @SerializedName("related_resource")
-    Integer relatedResource;
+    JsonObject relatedResource;
 
     @SerializedName("assignee_id")
     Integer assigneeId;
@@ -54,8 +55,10 @@ public class CopperTask extends AbstractSearchableCopperObject {
     @SerializedName("date_modified")
     Integer dateModified;
 
-    @Override
-    public CopperTaskSearchParameters.Builder getSearchParametersBuilder() {
+    @SerializedName("custom_activity_type_id")
+    Integer customActivityTypeId;
+
+    public static CopperTaskSearchParameters.Builder getSearchParametersBuilder() {
         return CopperTaskSearchParameters.builder();
     }
 

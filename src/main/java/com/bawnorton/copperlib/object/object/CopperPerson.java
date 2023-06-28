@@ -3,6 +3,7 @@ package com.bawnorton.copperlib.object.object;
 import com.bawnorton.copperlib.object.CopperType;
 import com.bawnorton.copperlib.object.field.*;
 import com.bawnorton.copperlib.object.search.CopperPersonSearchParameters;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -82,7 +83,7 @@ public class CopperPerson extends AbstractSearchableCopperObject {
     Integer dateModified;
 
     @SerializedName("leads_converted_from")
-    List<Integer> leadsConvertedFrom;
+    List<JsonObject> leadsConvertedFrom;
 
     @SerializedName("date_lead_created")
     Integer dateLeadCreated;
@@ -90,8 +91,7 @@ public class CopperPerson extends AbstractSearchableCopperObject {
     @SerializedName("date_last_contacted")
     Integer dateLastContacted;
 
-    @Override
-    public CopperPersonSearchParameters.Builder getSearchParametersBuilder() {
+    public static CopperPersonSearchParameters.Builder getSearchParametersBuilder() {
         return CopperPersonSearchParameters.builder();
     }
 

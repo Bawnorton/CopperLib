@@ -3,6 +3,7 @@ package com.bawnorton.copperlib.object.object;
 import com.bawnorton.copperlib.object.CopperType;
 import com.bawnorton.copperlib.object.field.CopperCustomField;
 import com.bawnorton.copperlib.object.search.CopperOpportunitySearchParameters;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -73,7 +74,7 @@ public class CopperOpportunity extends AbstractSearchableCopperObject {
     Integer winProbability;
 
     @SerializedName("leads_converted_from")
-    List<Integer> leadsConvertedFrom;
+    List<JsonObject> leadsConvertedFrom;
 
     @SerializedName("custom_fields")
     List<CopperCustomField> customFields;
@@ -96,8 +97,7 @@ public class CopperOpportunity extends AbstractSearchableCopperObject {
     @SerializedName("date_lead_created")
     Integer dateLeadCreated;
 
-    @Override
-    public CopperOpportunitySearchParameters.Builder getSearchParametersBuilder() {
+    public static CopperOpportunitySearchParameters.Builder getSearchParametersBuilder() {
         return CopperOpportunitySearchParameters.builder();
     }
 

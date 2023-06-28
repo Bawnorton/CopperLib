@@ -4,6 +4,5 @@ import com.bawnorton.copperlib.object.CopperType;
 import com.bawnorton.copperlib.object.search.SearchParameters;
 
 public abstract class AbstractSearchableCopperObject extends AbstractCopperObject {
-    public abstract SearchParameters.Builder getSearchParametersBuilder();
     public abstract CopperType getCopperType();
 }
