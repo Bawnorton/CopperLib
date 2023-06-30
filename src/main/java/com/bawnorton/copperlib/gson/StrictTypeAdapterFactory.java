@@ -42,6 +42,7 @@ public class StrictTypeAdapterFactory implements TypeAdapterFactory {
         public T read(JsonReader in) {
             JsonElement jsonElement = Streams.parse(in);
             if(jsonElement.isJsonNull()) return null;
+            if(jsonElement.isJsonPrimitive()) return null;
 
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             T targetObject = delegateAdapter.fromJsonTree(jsonObject);

@@ -1,9 +1,9 @@
 package com.bawnorton.copperlib;
 
-import com.bawnorton.copperlib.api.AuthenticationInterceptor;
+import com.bawnorton.copperlib.api.intercept.AuthenticationInterceptor;
 import com.bawnorton.copperlib.api.CopperApi;
 import com.bawnorton.copperlib.object.field.AbstractCopperField;
-import com.bawnorton.copperlib.object.object.AbstractCopperObject;
+import com.bawnorton.copperlib.object.AbstractCopperObject;
 import com.bawnorton.copperlib.gson.StrictTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

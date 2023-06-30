@@ -1,8 +1,8 @@
-package com.bawnorton.copperlib.object.object;
+package com.bawnorton.copperlib.object;
 
-import com.bawnorton.copperlib.object.CopperType;
 import com.bawnorton.copperlib.object.field.*;
-import com.bawnorton.copperlib.object.search.CopperLeadSearchParameters;
+import com.bawnorton.copperlib.object.search.CopperPersonSearchParameters;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,12 +11,15 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperLead extends AbstractSearchableCopperObject {
+public class CopperPerson extends AbstractSearchableCopperObject {
     @SerializedName("id")
     Integer id;
 
     @SerializedName("name")
     String name;
+
+    @SerializedName("prefix")
+    String prefix;
 
     @SerializedName("first_name")
     String firstName;
@@ -27,9 +30,6 @@ public class CopperLead extends AbstractSearchableCopperObject {
     @SerializedName("last_name")
     String lastName;
 
-    @SerializedName("prefix")
-    String prefix;
-
     @SerializedName("suffix")
     String suffix;
 
@@ -39,50 +39,26 @@ public class CopperLead extends AbstractSearchableCopperObject {
     @SerializedName("assignee_id")
     Integer assigneeId;
 
+    @SerializedName("company_id")
+    Integer companyId;
+
     @SerializedName("company_name")
     String companyName;
 
-    @SerializedName("customer_source_id")
-    Integer customerSourceId;
-
-    @SerializedName("converted_opportunity_id")
-    Integer convertedOpportunityId;
-
-    @SerializedName("converted_contact_id")
-    Integer convertedContactId;
-
-    @SerializedName("converted_at")
-    Integer convertedAt;
+    @SerializedName("contact_type_id")
+    Integer contactTypeId;
 
     @SerializedName("details")
     String details;
 
-    @SerializedName("email")
-    CopperEmail email;
-
-    @SerializedName("monetary_unit")
-    String monetaryUnit;
-
-    @SerializedName("monetary_value")
-    String monetaryValue;
-
-    @SerializedName("converted_unit")
-    String convertedUnit;
-
-    @SerializedName("converted_value")
-    String convertedValue;
+    @SerializedName("emails")
+    List<CopperEmail> emails;
 
     @SerializedName("phone_numbers")
     List<CopperPhoneNumber> phoneNumbers;
 
     @SerializedName("socials")
     List<CopperSocial> socials;
-
-    @SerializedName("status")
-    String status;
-
-    @SerializedName("status_id")
-    Integer statusId;
 
     @SerializedName("tags")
     List<String> tags;
@@ -96,24 +72,30 @@ public class CopperLead extends AbstractSearchableCopperObject {
     @SerializedName("custom_fields")
     List<CopperCustomField> customFields;
 
+    @SerializedName("interaction_count")
+    Integer interactionCount;
+
     @SerializedName("date_created")
     Integer dateCreated;
 
     @SerializedName("date_modified")
     Integer dateModified;
 
+    @SerializedName("leads_converted_from")
+    List<JsonObject> leadsConvertedFrom;
+
+    @SerializedName("date_lead_created")
+    Integer dateLeadCreated;
+
     @SerializedName("date_last_contacted")
     Integer dateLastContacted;
 
-    @SerializedName("interaction_count")
-    Integer interactionCount;
-
-    public static CopperLeadSearchParameters.Builder getSearchParametersBuilder() {
-        return CopperLeadSearchParameters.builder();
+    public static CopperPersonSearchParameters.Builder getSearchParametersBuilder() {
+        return CopperPersonSearchParameters.builder();
     }
 
     @Override
     public CopperType getCopperType() {
-        return CopperType.LEAD;
+        return CopperType.PERSON;
     }
 }

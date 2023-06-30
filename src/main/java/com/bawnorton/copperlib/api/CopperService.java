@@ -1,13 +1,12 @@
 
 package com.bawnorton.copperlib.api;
 
-import com.bawnorton.copperlib.object.object.*;
+import com.bawnorton.copperlib.object.*;
+import com.bawnorton.copperlib.object.relation.CopperRelation;
 import com.bawnorton.copperlib.object.search.*;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.*;
 
 import java.util.List;
 
@@ -38,6 +37,18 @@ public interface CopperService {
 
     @GET("activities/{id}")
     Single<CopperActivity> getActivity(@Path("id") int id);
+
+    @GET("{resource}/{id}/related")
+    Single<List<CopperRelation>> getAllRelatedTo(@Path("resource") String resource, @Path("id") int id);
+
+    @GET("{resource}/{id}/related/{type}")
+    Single<List<CopperRelation>> getTypeRelatedTo(@Path("resource") String resource, @Path("id") int id, @Path("type") String type);
+
+    @PUT("people/{id}")
+    Single<Object> updatePerson(@Path("id") int id, @Body CopperPerson update);
+
+    @PUT("companies/{id}")
+    Single<Object> updateCompany(@Path("id") int id, @Body CopperCompany update);
 
     @POST("users/search")
     Single<List<CopperUser>> listUsers(@Body CopperUserSearchParameters searchParameters);

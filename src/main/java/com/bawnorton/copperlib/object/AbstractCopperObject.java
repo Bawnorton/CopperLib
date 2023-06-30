@@ -1,14 +1,13 @@
-package com.bawnorton.copperlib.object.object;
+package com.bawnorton.copperlib.object;
 
+import com.bawnorton.copperlib.gson.CopperGson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Data;
 
 @Data
 public abstract class AbstractCopperObject {
-    private static final Gson GSON = new GsonBuilder()
-            .setPrettyPrinting()
-            .create();
+    private static final Gson GSON = CopperGson.getInstance();
 
     public abstract Integer getId();
 

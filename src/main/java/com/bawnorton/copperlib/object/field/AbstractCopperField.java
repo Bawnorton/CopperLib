@@ -1,15 +1,14 @@
 package com.bawnorton.copperlib.object.field;
 
+import com.bawnorton.copperlib.gson.CopperGson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public abstract class AbstractCopperField {
-    private static final Gson gson = new GsonBuilder()
-            .setPrettyPrinting()
-            .create();
+    private static final Gson GSON = CopperGson.getInstance();
 
     public String asJsonString() {
-        return gson.toJson(this);
+        return GSON.toJson(this);
     }
 
     @Override

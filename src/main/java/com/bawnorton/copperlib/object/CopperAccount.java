@@ -1,4 +1,4 @@
-package com.bawnorton.copperlib.object.object;
+package com.bawnorton.copperlib.object;
 
 import com.bawnorton.copperlib.object.field.AbstractCopperField;
 import com.google.gson.annotations.SerializedName;

@@ -1,4 +1,4 @@
-package com.bawnorton.copperlib.object.object;
+package com.bawnorton.copperlib.object;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperCustomerSource extends AbstractCopperObject {
+public class CopperLossReason extends AbstractCopperObject {
     @SerializedName("id")
     Integer id;
 

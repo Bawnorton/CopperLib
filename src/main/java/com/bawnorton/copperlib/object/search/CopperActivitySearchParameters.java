@@ -1,8 +1,8 @@
 package com.bawnorton.copperlib.object.search;
 
 import com.bawnorton.copperlib.object.CopperType;
-import com.bawnorton.copperlib.object.object.AbstractSearchableCopperObject;
-import com.bawnorton.copperlib.object.object.CopperActivity;
+import com.bawnorton.copperlib.object.AbstractSearchableCopperObject;
+import com.bawnorton.copperlib.object.CopperActivity;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.bawnorton.copperlib.object.object;
+package com.bawnorton.copperlib.object;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

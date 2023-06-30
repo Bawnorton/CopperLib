@@ -1,11 +1,12 @@
 package com.bawnorton.copperlib.api;
 
+import com.bawnorton.copperlib.api.intercept.AuthenticationInterceptor;
+import com.bawnorton.copperlib.api.intercept.RateLimitIntercpetor;
 import com.bawnorton.copperlib.exception.CopperException;
-import com.bawnorton.copperlib.gson.StrictTypeAdapterFactory;
-import com.bawnorton.copperlib.object.field.AbstractCopperField;
-import com.bawnorton.copperlib.object.object.*;
+import com.bawnorton.copperlib.gson.CopperGson;
+import com.bawnorton.copperlib.object.*;
+import com.bawnorton.copperlib.object.relation.CopperRelation;
 import com.bawnorton.copperlib.object.search.*;
-import com.google.gson.GsonBuilder;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 import okhttp3.ConnectionPool;
@@ -26,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CopperApi {
     private static final String BASE_URL = "https://api.copper.com/developer_api/v1/";
-    private static final Logger LOGGER = LogManager.getLogger("CopperApi");
+    public static final Logger LOGGER = LogManager.getLogger("CopperApi");
     private final CopperService service;
 
     public CopperApi(@Nullable final String token, @Nullable final String email) throws IllegalArgumentException {
@@ -35,6 +36,7 @@ public class CopperApi {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new AuthenticationInterceptor(token, email))
+                .addNetworkInterceptor(new RateLimitIntercpetor())
                 .connectionPool(new ConnectionPool(5, 1, TimeUnit.SECONDS))
                 .readTimeout(60, TimeUnit.SECONDS)
                 .build();
@@ -42,12 +44,7 @@ public class CopperApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(
-                        new GsonBuilder()
-                                .registerTypeAdapterFactory(new StrictTypeAdapterFactory(AbstractCopperObject.class))
-                                .registerTypeAdapterFactory(new StrictTypeAdapterFactory(AbstractCopperField.class))
-                                .setPrettyPrinting()
-                                .create()))
+                .addConverterFactory(GsonConverterFactory.create(CopperGson.getInstance()))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
 
@@ -65,16 +62,16 @@ public class CopperApi {
                 Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
                 return;
             }
+            if(e instanceof CopperException) {
+                LOGGER.error(e);
+                return;
+            }
             if(e instanceof HttpException httpException) {
                 try {
                     LOGGER.error("HttpException: " + httpException.code() + " " + httpException.message() + " " + httpException.response().errorBody().string());
-                } catch (RuntimeException ioException) {
+                } catch (RuntimeException ex) {
                     LOGGER.error("HttpException: " + httpException.code() + " " + httpException.message());
                 }
-                return;
-            }
-            if(e instanceof CopperException) {
-                LOGGER.error("CopperException: " + e.getMessage());
                 return;
             }
             LOGGER.error("Undeliverable exception received, not sure what to do", e);
@@ -115,6 +112,65 @@ public class CopperApi {
 
     public CopperActivity getActivity(int id) {
         return service.getActivity(id).blockingGet();
+    }
+
+    public List<CopperRelation> getAllRelatedTo(CopperType type, int id) {
+        return service.getAllRelatedTo(type.plural(), id).blockingGet();
+    }
+
+    public List<CopperRelation> getTypeRelatedTo(CopperType type, int id, CopperType relatedType) {
+        if(!type.isValidRelatedType(relatedType)) throw new IllegalArgumentException("Invalid related type \"" + relatedType + "\" for type \"" + type + "\". Valid types are: " + type.getValidRelatedTypes());
+        return service.getTypeRelatedTo(type.plural(), id, relatedType.plural()).blockingGet();
+    }
+
+    public void populateRelations(AbstractSearchableCopperObject object) {
+        List<CopperRelation> relations = getAllRelatedTo(object.getCopperType(), object.getId());
+        for (CopperRelation relation : relations) {
+            object.addRelation(relation);
+        }
+    }
+
+    public void populateRelations(AbstractSearchableCopperObject object, CopperType type) {
+        List<CopperRelation> relations = getTypeRelatedTo(object.getCopperType(), object.getId(), type);
+        for (CopperRelation relation : relations) {
+            object.addRelation(relation);
+        }
+    }
+
+    public boolean addTag(CopperPerson person, String tag) {
+        if(person.getTags().contains(tag.toLowerCase())) return false;
+        CopperPerson newPerson = new CopperPerson();
+        newPerson.setTags(person.getTags());
+        newPerson.getTags().add(tag.toLowerCase());
+        service.updatePerson(person.getId(), newPerson).blockingSubscribe();
+        return true;
+    }
+
+    public boolean removeTag(CopperPerson person, String tag) {
+        if(!person.getTags().contains(tag.toLowerCase())) return false;
+        CopperPerson newPerson = new CopperPerson();
+        newPerson.setTags(person.getTags());
+        newPerson.getTags().remove(tag.toLowerCase());
+        service.updatePerson(person.getId(), person).blockingSubscribe();
+        return true;
+    }
+
+    public boolean addTag(CopperCompany company, String tag) {
+        if(company.getTags().contains(tag.toLowerCase())) return false;
+        CopperCompany newCompany = new CopperCompany();
+        newCompany.setTags(company.getTags());
+        newCompany.getTags().add(tag.toLowerCase());
+        service.updateCompany(company.getId(), newCompany).blockingSubscribe();
+        return true;
+    }
+
+    public boolean removeTag(CopperCompany company, String tag) {
+        if(!company.getTags().contains(tag.toLowerCase())) return false;
+        CopperCompany newCompany = new CopperCompany();
+        newCompany.setTags(company.getTags());
+        newCompany.getTags().remove(tag.toLowerCase());
+        service.updateCompany(company.getId(), company).blockingSubscribe();
+        return true;
     }
 
     public List<CopperPerson> getPeople(CopperPersonSearchParameters parameters) {

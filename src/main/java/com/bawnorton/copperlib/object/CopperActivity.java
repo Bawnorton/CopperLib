@@ -1,10 +1,7 @@
-package com.bawnorton.copperlib.object.object;
+package com.bawnorton.copperlib.object;
 
-import com.bawnorton.copperlib.object.CopperType;
 import com.bawnorton.copperlib.object.field.AbstractCopperField;
 import com.bawnorton.copperlib.object.search.CopperActivitySearchParameters;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +19,7 @@ public class CopperActivity extends AbstractSearchableCopperObject {
     Type type;
 
     @SerializedName("parent")
-    JsonElement parent;
+    Parent parent;
 
     @SerializedName("details")
     String details;
@@ -40,10 +37,10 @@ public class CopperActivity extends AbstractSearchableCopperObject {
     Integer dateModified;
 
     @SerializedName("old_value")
-    JsonElement oldValue;
+    Value oldValue;
 
     @SerializedName("new_value")
-    JsonElement newValue;
+    Value newValue;
 
     public static CopperActivitySearchParameters.Builder getSearchParametersBuilder() {
         return CopperActivitySearchParameters.builder();
@@ -71,5 +68,25 @@ public class CopperActivity extends AbstractSearchableCopperObject {
 
         @SerializedName("count_as_interaction")
         Boolean countsAsInteraction;
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = true)
+    public static class Value extends AbstractCopperField {
+        @SerializedName("id")
+        Integer id;
+
+        @SerializedName("name")
+        String name;
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = true)
+    public static class Parent extends AbstractCopperField {
+        @SerializedName("id")
+        Integer id;
+
+        @SerializedName("type")
+        String type;
     }
 }

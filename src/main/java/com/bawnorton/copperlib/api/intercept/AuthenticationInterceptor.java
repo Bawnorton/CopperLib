@@ -1,5 +1,5 @@
 
-package com.bawnorton.copperlib.api;
+package com.bawnorton.copperlib.api.intercept;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;

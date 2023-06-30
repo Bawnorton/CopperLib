@@ -1,6 +1,5 @@
-package com.bawnorton.copperlib.object.object;
+package com.bawnorton.copperlib.object;
 
-import com.bawnorton.copperlib.object.CopperType;
 import com.bawnorton.copperlib.object.field.CopperCustomField;
 import com.bawnorton.copperlib.object.search.CopperOpportunitySearchParameters;
 import com.google.gson.JsonObject;

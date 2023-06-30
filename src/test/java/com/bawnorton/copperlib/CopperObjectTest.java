@@ -1,6 +1,6 @@
 package com.bawnorton.copperlib;
 
-import com.bawnorton.copperlib.object.object.*;
+import com.bawnorton.copperlib.object.*;
 import com.google.gson.JsonObject;
 import org.junit.jupiter.api.Test;
 
@@ -96,31 +96,31 @@ public class CopperObjectTest extends TestingBase {
         }
     }
 
-//    @Test
-//    void testTaskObj() {
-//        LOGGER.info("Testing CopperTask Object");
-//        int id = 39939242; // Test Task ID
-//        CopperTask task = copperApi.getTask(id);
-//        JsonObject rawTask = getRawCopperObject("tasks", id);
-//        CopperTask parsedTask = GSON.fromJson(rawTask, CopperTask.class);
-//
-//        if(!task.equals(parsedTask)) {
-//            testEqualFields(task, parsedTask);
-//            throw new AssertionError("Task did not match");
-//        }
-//    }
+    @Test
+    void testTaskObj() {
+        LOGGER.info("Testing CopperTask Object");
+        CopperTask task = copperApi.getTasks(CopperTask.getSearchParametersBuilder().build()).get(0);
+        int id = task.getId();
+        JsonObject rawTask = getRawCopperObject("tasks", id);
+        CopperTask parsedTask = GSON.fromJson(rawTask, CopperTask.class);
 
-//    @Test
-//    void testActivityObj() {
-//        LOGGER.info("Testing CopperActivity Object");
-//        int id = 39939242; // Test Activity ID
-//        CopperActivity activity = copperApi.getActivity(id);
+        if(!task.equals(parsedTask)) {
+            testEqualFields(task, parsedTask);
+            throw new AssertionError("Task did not match");
+        }
+    }
+
+    @Test
+    void testActivityObj() {
+        LOGGER.info("Testing CopperActivity Object");
+        copperApi.getActivities(CopperActivity.getSearchParametersBuilder().fullResult(true).build());
+//        int id = activity.getId();
 //        JsonObject rawActivity = getRawCopperObject("activities", id);
 //        CopperActivity parsedActivity = GSON.fromJson(rawActivity, CopperActivity.class);
-//
+
 //        if(!activity.equals(parsedActivity)) {
 //            testEqualFields(activity, parsedActivity);
 //            throw new AssertionError("Activity did not match");
 //        }
-//    }
+    }
 }
