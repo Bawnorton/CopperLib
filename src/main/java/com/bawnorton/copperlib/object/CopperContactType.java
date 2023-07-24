@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperContactType extends AbstractCopperObject {
+public class CopperContactType extends CopperObject {
     @SerializedName("id")
     Integer id;
 

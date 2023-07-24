@@ -1,13 +1,13 @@
 package com.bawnorton.copperlib.object;
 
-import com.bawnorton.copperlib.object.field.AbstractCopperField;
+import com.bawnorton.copperlib.object.field.CopperField;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperAccount extends AbstractCopperObject {
+public class CopperAccount extends CopperObject {
     @SerializedName("id")
     Integer id;
 
@@ -22,7 +22,7 @@ public class CopperAccount extends AbstractCopperObject {
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    public static class Settings extends AbstractCopperField {
+    public static class Settings extends CopperField {
         @SerializedName("setting_team_permissions_enabled")
         Boolean settingTeamPermissionsEnabled;
 

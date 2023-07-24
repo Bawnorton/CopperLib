@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperAddress extends AbstractCopperField {
+public class CopperAddress extends CopperField {
     @SerializedName("street")
     String street;
 

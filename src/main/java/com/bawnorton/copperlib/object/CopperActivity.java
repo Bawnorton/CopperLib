@@ -1,6 +1,6 @@
 package com.bawnorton.copperlib.object;
 
-import com.bawnorton.copperlib.object.field.AbstractCopperField;
+import com.bawnorton.copperlib.object.field.CopperField;
 import com.bawnorton.copperlib.object.search.CopperActivitySearchParameters;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperActivity extends AbstractSearchableCopperObject {
+public class CopperActivity extends SearchableCopperObject {
     @SerializedName("id")
     Integer id;
 
@@ -53,7 +53,7 @@ public class CopperActivity extends AbstractSearchableCopperObject {
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    public static class Type extends AbstractCopperField {
+    public static class Type extends CopperField {
         @SerializedName("id")
         Integer id;
 
@@ -72,7 +72,7 @@ public class CopperActivity extends AbstractSearchableCopperObject {
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    public static class Value extends AbstractCopperField {
+    public static class Value extends CopperField {
         @SerializedName("id")
         Integer id;
 
@@ -82,7 +82,7 @@ public class CopperActivity extends AbstractSearchableCopperObject {
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    public static class Parent extends AbstractCopperField {
+    public static class Parent extends CopperField {
         @SerializedName("id")
         Integer id;
 

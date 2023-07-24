@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperLead extends AbstractSearchableCopperObject {
+public class CopperLead extends SearchableCopperObject {
     @SerializedName("id")
     Integer id;
 

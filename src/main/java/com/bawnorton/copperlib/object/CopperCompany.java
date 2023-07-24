@@ -5,12 +5,14 @@ import com.bawnorton.copperlib.object.search.CopperCompanySearchParameters;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperCompany extends AbstractSearchableCopperObject {
+public class CopperCompany extends SearchableCopperObject {
     @SerializedName("id")
     Integer id;
 
@@ -55,6 +57,16 @@ public class CopperCompany extends AbstractSearchableCopperObject {
 
     @SerializedName("date_modified")
     Integer dateModified;
+
+    public @Nullable Date getDateCreated() {
+        if(dateCreated == null) return null;
+        return new Date(dateCreated * 1000L);
+    }
+
+    public @Nullable Date getDateModified() {
+        if(dateModified == null) return null;
+        return new Date(dateModified * 1000L);
+    }
 
     public static CopperCompanySearchParameters.Builder getSearchParametersBuilder() {
         return CopperCompanySearchParameters.builder();

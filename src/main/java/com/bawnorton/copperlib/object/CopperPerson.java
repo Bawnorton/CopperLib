@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperPerson extends AbstractSearchableCopperObject {
+public class CopperPerson extends SearchableCopperObject {
     @SerializedName("id")
     Integer id;
 

@@ -4,7 +4,9 @@ import com.bawnorton.copperlib.object.relation.CopperRelation;
 
 import java.util.*;
 
-public abstract class AbstractSearchableCopperObject extends AbstractCopperObject {
+import static com.bawnorton.copperlib.api.CopperApi.LOGGER;
+
+public abstract class SearchableCopperObject extends CopperObject {
     private Set<CopperRelation> relations;
 
     public abstract CopperType getCopperType();
@@ -23,12 +25,25 @@ public abstract class AbstractSearchableCopperObject extends AbstractCopperObjec
         this.relations = null;
     }
 
+    public <T extends SearchableCopperObject> T as(Class<T> clazz) {
+        return clazz.cast(this);
+    }
+
     public Optional<List<CopperRelation>> getRelations(CopperType ofType) {
         if (relations == null) return Optional.empty();
         List<CopperRelation> filtered = new ArrayList<>();
         for (CopperRelation relation : relations) {
-            if (relation.getType().equals(ofType)) filtered.add(relation);
+            if(relation.getCopperType() == null) {
+                LOGGER.warn("Relation copperType is null for relation " + relation + " on object " + this);
+                continue;
+            }
+            if(relation.getCopperType().equals(ofType)) filtered.add(relation);
         }
         return Optional.of(filtered);
+    }
+
+    public Optional<List<CopperRelation>> getRelations() {
+        if (relations == null) return Optional.empty();
+        return Optional.of(new ArrayList<>(relations));
     }
 }

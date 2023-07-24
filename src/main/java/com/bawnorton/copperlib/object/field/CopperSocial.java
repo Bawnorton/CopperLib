@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperSocial extends AbstractCopperField {
+public class CopperSocial extends CopperField {
     @SerializedName("url")
     String url;
 

@@ -50,6 +50,18 @@ public interface CopperService {
     @PUT("companies/{id}")
     Single<Object> updateCompany(@Path("id") int id, @Body CopperCompany update);
 
+    @PUT("leads/{id}")
+    Single<Object> updateLead(@Path("id") int id, @Body CopperLead update);
+
+    @PUT("opportunities/{id}")
+    Single<Object> updateOpportunity(@Path("id") int id, @Body CopperOpportunity update);
+
+    @PUT("projects/{id}")
+    Single<Object> updateProject(@Path("id") int id, @Body CopperProject update);
+
+    @PUT("tasks/{id}")
+    Single<Object> updateTask(@Path("id") int id, @Body CopperTask update);
+
     @POST("users/search")
     Single<List<CopperUser>> listUsers(@Body CopperUserSearchParameters searchParameters);
 

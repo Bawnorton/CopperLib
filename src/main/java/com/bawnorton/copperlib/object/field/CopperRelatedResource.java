@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperRelatedResource extends AbstractCopperField {
+public class CopperRelatedResource extends CopperField {
     @SerializedName("id")
     Integer id;
 

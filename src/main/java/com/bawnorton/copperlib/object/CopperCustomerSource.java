@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperCustomerSource extends AbstractCopperObject {
+public class CopperCustomerSource extends CopperObject {
     @SerializedName("id")
     Integer id;
 

@@ -1,7 +1,7 @@
 package com.bawnorton.copperlib.object.search;
 
 import com.bawnorton.copperlib.object.CopperType;
-import com.bawnorton.copperlib.object.AbstractSearchableCopperObject;
+import com.bawnorton.copperlib.object.SearchableCopperObject;
 import com.bawnorton.copperlib.object.CopperActivity;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
@@ -46,7 +46,7 @@ public class CopperActivitySearchParameters implements SearchParameters {
         @SerializedName("type")
         CopperType type;
 
-        public static ActivityParent of(AbstractSearchableCopperObject object) {
+        public static ActivityParent of(SearchableCopperObject object) {
             return ActivityParent.builder()
                     .id(object.getId())
                     .type(object.getCopperType())

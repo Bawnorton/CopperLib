@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CopperTag extends AbstractCopperObject {
+public class CopperTag extends CopperObject {
     @SerializedName("name")
     String name;
 

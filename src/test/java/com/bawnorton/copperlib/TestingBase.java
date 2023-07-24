@@ -2,12 +2,10 @@ package com.bawnorton.copperlib;
 
 import com.bawnorton.copperlib.api.intercept.AuthenticationInterceptor;
 import com.bawnorton.copperlib.api.CopperApi;
-import com.bawnorton.copperlib.object.field.AbstractCopperField;
-import com.bawnorton.copperlib.object.AbstractCopperObject;
+import com.bawnorton.copperlib.object.field.CopperField;
+import com.bawnorton.copperlib.object.CopperObject;
 import com.bawnorton.copperlib.gson.StrictTypeAdapterFactory;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import lombok.Data;
 import okhttp3.*;
@@ -25,8 +23,8 @@ public abstract class TestingBase {
     protected static final CopperApi copperApi;
     protected static final OkHttpClient client;
     protected static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapterFactory(new StrictTypeAdapterFactory(AbstractCopperObject.class))
-            .registerTypeAdapterFactory(new StrictTypeAdapterFactory(AbstractCopperField.class))
+            .registerTypeAdapterFactory(new StrictTypeAdapterFactory(CopperObject.class))
+            .registerTypeAdapterFactory(new StrictTypeAdapterFactory(CopperField.class))
             .setPrettyPrinting()
             .create();
     protected static final Logger LOGGER;
@@ -55,30 +53,37 @@ public abstract class TestingBase {
         Request request = new Request.Builder()
                 .url("https://api.copper.com/developer_api/v1/" + endpoint + "/" + id)
                 .build();
-        return getRawCopperObject(request);
+        return getCopper(request, JsonObject.class);
     }
 
     protected JsonObject getRawCopperObject(String endpoint) {
         Request request = new Request.Builder()
                 .url("https://api.copper.com/developer_api/v1/" + endpoint)
                 .build();
-        return getRawCopperObject(request);
+        return getCopper(request, JsonObject.class);
     }
 
-    private JsonObject getRawCopperObject(Request request) {
+    protected JsonArray getRawRelations(String endpoint, int id) {
+        Request request = new Request.Builder()
+                .url("https://api.copper.com/developer_api/v1/" + endpoint + "/" + id + "/related")
+                .build();
+        return getCopper(request, JsonArray.class);
+    }
+
+    private <T extends JsonElement> T getCopper(Request request, Class<T> type) {
         Call call = client.newCall(request);
         try(Response response = call.execute()) {
             ResponseBody body = response.body();
             if (body == null) throw new RuntimeException("Response body was null");
 
-            return GSON.fromJson(body.string(), JsonObject.class);
+            return GSON.fromJson(body.string(), type);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     // compare all fields of two AbstractCopperObjects and log any differences
-    protected <T extends AbstractCopperObject> void testEqualFields(T first, T second) {
+    protected <T extends CopperObject> void testEqualFields(T first, T second) {
         if(first == null || second == null) {
             LOGGER.error("One or more objects were null");
             return;

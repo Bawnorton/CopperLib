@@ -1,16 +1,17 @@
 package com.bawnorton.copperlib.util;
 
-import com.bawnorton.copperlib.object.AbstractSearchableCopperObject;
+import com.bawnorton.copperlib.object.SearchableCopperObject;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 
-public class CopperSet<T extends AbstractSearchableCopperObject> extends HashSet<T> {
+public class CopperSet<T extends SearchableCopperObject> extends HashSet<T> {
     public CopperSet() {
         super();
     }
 
-    public static <T extends AbstractSearchableCopperObject> CopperSet<T> of(Collection<T> entries) {
+    public static <T extends SearchableCopperObject> CopperSet<T> of(Collection<T> entries) {
         CopperSet<T> copperSet = new CopperSet<>();
         copperSet.addAll(entries);
         return copperSet;
@@ -24,6 +25,15 @@ public class CopperSet<T extends AbstractSearchableCopperObject> extends HashSet
             }
         }
         return subset;
+    }
+
+    public Optional<T> getFromId(int id) {
+        for(T object: this) {
+            if(object.getId() == id) {
+                return Optional.of(object);
+            }
+        }
+        return Optional.empty();
     }
 
     public Class<?> getType() {

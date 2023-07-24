@@ -12,10 +12,12 @@ public enum CopperType {
     @SerializedName("project") PROJECT(CopperProject.class),
     @SerializedName("task") TASK(CopperTask.class),
     @SerializedName("activity") ACTIVITY(CopperActivity.class),
-    @SerializedName("user") USER(CopperUser.class);
+    @SerializedName("user") USER(CopperUser.class),
+    // non-object types
+    @SerializedName("filedocument") FILE_DOCUMENT(null);
 
-    private final Class<? extends AbstractSearchableCopperObject> clazz;
-    private List<CopperType> relatedTypes;
+    private final Class<? extends SearchableCopperObject> clazz;
+    private List<CopperType> relatedTypes = List.of();
 
     static {
         LEAD.relatedTypes = List.of(CopperType.TASK);
@@ -26,11 +28,11 @@ public enum CopperType {
         TASK.relatedTypes = List.of(CopperType.PERSON, CopperType.COMPANY, CopperType.OPPORTUNITY, CopperType.LEAD, CopperType.PROJECT);
     }
 
-    CopperType(Class<? extends AbstractSearchableCopperObject> clazz) {
+    CopperType(Class<? extends SearchableCopperObject> clazz) {
         this.clazz = clazz;
     }
 
-    public Class<? extends AbstractSearchableCopperObject> getObjectClass() {
+    public Class<? extends SearchableCopperObject> getObjectClass() {
         return clazz;
     }
 
@@ -51,6 +53,7 @@ public enum CopperType {
             case TASK -> "tasks";
             case ACTIVITY -> "activities";
             case USER -> "users";
+            case FILE_DOCUMENT -> "filedocuments";
         };
     }
 
@@ -64,11 +67,12 @@ public enum CopperType {
             case "tasks" -> TASK;
             case "activities" -> ACTIVITY;
             case "users" -> USER;
+            case "filedocuments" -> FILE_DOCUMENT;
             default -> throw new IllegalArgumentException("Plural " + plural + " is not a CopperType");
         };
     }
 
-    public static CopperType fromClass(Class<? extends AbstractSearchableCopperObject> clazz) {
+    public static CopperType fromClass(Class<? extends SearchableCopperObject> clazz) {
         for (CopperType type : values()) {
             if (type.clazz == clazz) return type;
         }
